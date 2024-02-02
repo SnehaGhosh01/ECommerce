@@ -14,6 +14,7 @@ namespace ECommerceApplication.Repository
         Task<List<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(Guid id);
         Task<Product?> UpdateAsync(Guid id, ProductCreationDto product);
+        Task<List<Product>> GetSuggestedProduct(string categoryname, string subcategory, int count);
 
     }
 }

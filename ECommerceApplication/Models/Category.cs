@@ -11,5 +11,7 @@ namespace ECommerceApplication.Models
         [MaxLength(30)]
         [DisplayName("Category Name")]
         public string Name { get; set; }
+        [Required]
+        public string subCategory { get; set; }
     }
 }

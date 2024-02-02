@@ -92,3 +92,4 @@ C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.pdb
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.genruntimeconfig.cache
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ref\ECommerceApplication.dll
+C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.sourcelink.json

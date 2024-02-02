@@ -15,15 +15,17 @@ namespace ECommerceApplication.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ITokenRepository tokenRepository;
         private readonly IEmailService emailService;
-        public AuthController(UserManager <ApplicationUser> userManager, ITokenRepository tokenRepository_, IEmailService _emailService) {
+        private readonly IUserProfileRepository userProfileRepository;
+        public AuthController(UserManager <ApplicationUser> userManager, ITokenRepository tokenRepository_, IEmailService _emailService, IUserProfileRepository userProfileRepository_) {
             this.userManager= userManager;
             this.tokenRepository= tokenRepository_;
             this.emailService= _emailService;
+            userProfileRepository= userProfileRepository_;
         }
         //Post: /api/Auth/Register
        [HttpPost]
         [Route("UserRegister")]
-        public async Task<IActionResult> UserRegister([FromBody] VenderRegisterRequestDto registerRequestDto)
+        public async Task<IActionResult> UserRegister([FromBody] RegisterRequestDto registerRequestDto)
         {
             var applicationUser = new ApplicationUser
             {
@@ -124,6 +126,62 @@ namespace ECommerceApplication.Controllers
             }
 
             return BadRequest("Username or password incorrect");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProfileView()
+        {
+            string userId=HttpContext.Session.GetString("UserId");
+            if(userId != null)
+            {
+               ProfileViewDto res = await userProfileRepository.Profile(userId);
+                if(res != null)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return Ok("Something went wrong");
+                }
+            }
+            return Ok("User Not Found");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ProfileEdit([FromBody] ProfileEditDto p)
+        {
+            string userId = HttpContext.Session.GetString("UserId");
+            if (userId != null)
+            {
+                ProfileViewDto res = await userProfileRepository.UpdateProfile(userId,p);
+                if (res != null)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return Ok("Something went wrong");
+                }
+            }
+            return Ok("User Not Found");
+        }
+        [HttpGet("TransactionListOfUser")]
+        public async Task<IActionResult> TransactionListOfUser() 
+        {
+            string userId = HttpContext.Session.GetString("UserId");
+            if (userId != null)
+            {
+                var res = await userProfileRepository.TransactionListOfUser(userId);
+                if (res != null)
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return Ok("Something went wrong");
+                }
+            }
+            return Ok("User Not Found");
         }
     }
 }

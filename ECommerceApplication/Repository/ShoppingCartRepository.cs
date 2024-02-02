@@ -202,5 +202,13 @@ namespace ECommerceApplication.Repository
 
             return updatedCartItem;
         }
+
+        public async Task<List<ShoppingCartReturnDto>> DeleteAllAsync(string userId)
+        {
+            var cartdetails = await db.ShoppingCarts.Where(s => s.UserId == userId).ToListAsync();
+            db.ShoppingCarts.RemoveRange(cartdetails);
+            await db.SaveChangesAsync();
+            return await GetAllAsync(userId);
+        }
     }
 }

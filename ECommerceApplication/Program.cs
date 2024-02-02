@@ -21,6 +21,10 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+builder.Services.AddScoped<IPaymentRepository,PaymentRepository>();
+builder.Services.AddScoped<IOrderForUserRepository, OrderForUserRepository>();
+builder.Services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+builder.Services.AddScoped<IUserProfileRepository, UserProfileRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();
 
@@ -36,6 +40,18 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        // You can customize the CORS policy here.
+        // For example, allowing specific origins, methods, and headers:
+        builder.WithOrigins("*") // Update with your frontend origin
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 //builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -106,6 +122,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+app.UseCors();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();

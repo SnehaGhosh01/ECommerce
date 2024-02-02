@@ -2,7 +2,7 @@
 
 namespace ECommerceApplication.DTO
 {
-    public class VenderRegisterRequestDto
+    public class RegisterRequestDto
     {
         [Required(ErrorMessage = "Please provide the email address in correct format")]
         [DataType(DataType.EmailAddress)]

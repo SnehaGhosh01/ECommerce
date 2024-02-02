@@ -9,7 +9,7 @@ namespace ECommerceApplication.DTO
         public double Price { get; set; }
         
         public string ImageUrl { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
 
         public string VenderName { get; set; }
         

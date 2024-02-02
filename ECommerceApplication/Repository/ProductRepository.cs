@@ -21,12 +21,13 @@ namespace ECommerceApplication.Repository
         public async Task<List<Product>> SearchByProductName(string name)
         {
             name = name.ToUpper();
-
-            var products = await db.Products
+            List<Product> products= new List<Product>();
+            products = await db.Products
                 .Where(c => c.ProductName.ToUpper().StartsWith(name) || (c.ProductName.ToUpper().Contains(name) && !c.ProductName.ToUpper().StartsWith(name)))
                 .OrderByDescending(c => c.ProductName.ToUpper().StartsWith(name))
                 .ThenBy(c => c.ProductName.ToUpper())
                 .ToListAsync();
+            products.AddRange(await SearchByName(name));
             return products;
         }
 
@@ -35,7 +36,7 @@ namespace ECommerceApplication.Repository
             name = name.ToUpper();
 
             var categories = await db.Categories
-                .Where(c => c.Name.ToUpper().StartsWith(name) || (c.Name.ToUpper().Contains(name) && !c.Name.ToUpper().StartsWith(name)))
+                .Where(c => c.Name.ToUpper().StartsWith(name) || (c.Name.ToUpper().Contains(name) && !c.Name.ToUpper().StartsWith(name)) || c.subCategory.ToUpper().StartsWith(name) || (c.subCategory.ToUpper().Contains(name) && !c.subCategory.ToUpper().StartsWith(name)))
                 .OrderByDescending(c => c.Name.ToUpper().StartsWith(name))
                 .ThenBy(c => c.Name.ToUpper())
                 .ToListAsync();
@@ -61,7 +62,7 @@ namespace ECommerceApplication.Repository
         public async Task<Product> CreateAsync(ProductCreationDto product)
         {
             Product newProduct=new Product();
-            var category = await db.Categories.FirstOrDefaultAsync(c=>c.Name.ToUpper() ==product.CategoryName.ToUpper());
+            var category = await db.Categories.FirstOrDefaultAsync(c=>c.Name.ToUpper() ==product.CategoryName.ToUpper() && c.subCategory.ToUpper()==product.SubCategoryName.ToUpper());
             if(category == null)
             {
                 return null;
@@ -114,18 +115,40 @@ namespace ECommerceApplication.Repository
         public async Task<Product?> UpdateAsync(Guid id, ProductCreationDto product)
         {
             Product newProduct = await db.Products.FirstOrDefaultAsync(c => c.ProductId == id);
-            var category = await db.Categories.FirstOrDefaultAsync(c => c.Name.ToUpper() == product.CategoryName.ToUpper());
-            var vender = await db.ApplicationUsers.FirstOrDefaultAsync(c => c.Email == product.VenderEmail);
+            var category = await db.Categories.FirstOrDefaultAsync(c => c.Name.ToUpper() == product.CategoryName.ToUpper()&&c.subCategory.ToUpper()==product.SubCategoryName.ToUpper());
+            //var vender = await db.ApplicationUsers.FirstOrDefaultAsync(c => c.Email == product.VenderEmail);
             newProduct.ProductName = product.ProductName;
             newProduct.Description = product.Description;
             newProduct.Price = product.Price;
             newProduct.Stock = product.Stock;
             newProduct.ImageUrl = product.ImageUrl;
             newProduct.CategoryId = category.Id;
-            newProduct.VenderId = vender.Id;
+           // newProduct.VenderId = vender.Id;
 
             await db.SaveChangesAsync();
             return newProduct;
+        }
+        
+        public async Task<List<Product>> GetSuggestedProduct(string categoryname, string subcategory, int count)
+        {
+
+            var categoryId = await db.Categories
+    .FirstOrDefaultAsync(c => c.Name.ToUpper() == categoryname.ToUpper() && c.subCategory.ToUpper() == subcategory.ToUpper());
+
+            if (categoryId != null)
+            {
+                var randomProducts = await db.Products
+                    .Where(p => p.CategoryId == categoryId.Id)
+                    .OrderBy(p => Guid.NewGuid())
+                    .Take(count)
+                    .ToListAsync();
+                return randomProducts;
+            }
+            else
+            {
+                // Handle the case when the category is not found
+                return new List<Product>();
+            }
         }
 
     }

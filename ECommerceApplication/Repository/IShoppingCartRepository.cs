@@ -11,5 +11,6 @@ namespace ECommerceApplication.Repository
         Task<ShoppingCartReturnDto> GetByIdAsync(Guid id, string userId);
         Task<ShoppingCartReturnDto> UpdateCountPlusAsync(Guid id,string userId);
         Task<ShoppingCartReturnDto> UpdateCountMinusAsync(Guid id, string userId);
+        Task<List<ShoppingCartReturnDto>> DeleteAllAsync(string userId);
     }
 }

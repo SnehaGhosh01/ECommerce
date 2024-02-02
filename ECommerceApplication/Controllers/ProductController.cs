@@ -28,7 +28,6 @@ namespace ECommerceApplication.Controllers
             return Ok(list);
         }
         [HttpGet]
-        [Authorize(Roles = "Vender")]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
@@ -88,6 +87,12 @@ namespace ECommerceApplication.Controllers
             return Ok(productModel);
         }
 
-
+        [HttpGet("GetSuggestedProduct")]
+        public async Task<IActionResult> GetSuggestedProduct(string category, string subcategory, int count)
+        {
+            //
+            var list = await productRepository.GetSuggestedProduct(category, subcategory, count);
+            return Ok(list);
+        }
     }
 }

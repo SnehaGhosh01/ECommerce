@@ -24,5 +24,7 @@ namespace ECommerceApplication.DTO
         public string VenderEmail {  get; set; }
         [Required]
         public string CategoryName { get; set;}
+        [Required]
+        public string SubCategoryName { get; set; }
     }
 }

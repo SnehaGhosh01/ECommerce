@@ -12,6 +12,7 @@ namespace ECommerceApplication.Models
         public Guid ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
+       // public double ProductCurrPrice {  get; set; }
         [Required(ErrorMessage = "the quantity of product cannot be zero")]
         [Range(0, int.MaxValue)]
         public int count { get; set; }

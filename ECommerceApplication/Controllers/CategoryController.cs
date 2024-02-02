@@ -25,6 +25,7 @@ namespace ECommerceApplication.Controllers
 
             return Ok(list);
         }
+       
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -42,6 +43,7 @@ namespace ECommerceApplication.Controllers
             var category = new Category
             {
                 Name = categoryreq.Name,
+                subCategory = categoryreq.SubCategory,
             };
             await categoryRepository.CreateAsync(category);
 
@@ -56,6 +58,7 @@ namespace ECommerceApplication.Controllers
             var category = new Category
             {
                 Name = categoryreq.Name,
+                subCategory=categoryreq.SubCategory,
             };
             var categoryupdated = await categoryRepository.UpdateAsync(id, category);
             if (categoryupdated == null) { return NotFound(); }
