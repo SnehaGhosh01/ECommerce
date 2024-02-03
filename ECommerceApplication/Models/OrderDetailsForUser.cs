@@ -17,6 +17,10 @@ namespace ECommerceApplication.Models
         [Required]
         public string ShippingAddress {  get; set; }
         [Required]
+        public string Name { get; set; }
+        [Required]
+        public string PhoneNumber { get; set; }
+        [Required]
         public double TotalPrice {  get; set; }
         [Required]
         public string PaymentMethod {  get; set; }

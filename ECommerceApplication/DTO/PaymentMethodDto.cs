@@ -5,7 +5,10 @@ namespace ECommerceApplication.DTO
     public class PaymentMethodDto
     {
         public string Method {  get; set; }
-        [Required]
         public string Password {  get; set; }
+        public string Address { get; set; }
+        public string Name {  get; set; }
+        public string Mobile {  get; set; }
+
     }
 }

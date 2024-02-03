@@ -18,9 +18,9 @@ namespace ECommerceApplication.Controllers
             repo = repo_; 
         }
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] UserWalletRegisterDto req)
+        public async Task<IActionResult> Register(string userId,[FromBody] UserWalletRegisterDto req)
         {
-           var userId= HttpContext.Session.GetString("UserId");
+           //var userId= HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
                 UserWalletRegisterDto res =await repo.Registration(req, userId);
@@ -39,9 +39,9 @@ namespace ECommerceApplication.Controllers
             }
         }
         [HttpPut("RechargeWallet")]
-        public async Task<IActionResult> Recharge([FromBody] WalletRechargeDto req)
+        public async Task<IActionResult> Recharge(string userId,[FromBody] WalletRechargeDto req)
         {
-            var userId = HttpContext.Session.GetString("UserId");
+            //var userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
                 string res = await repo.RechargeWallet(req, userId);
@@ -53,9 +53,9 @@ namespace ECommerceApplication.Controllers
             }
         }
         [HttpPut("ChangePassword")]
-        public async Task<IActionResult> ChangePassword([FromBody] PasswordChangeDto req)
+        public async Task<IActionResult> ChangePassword(string userId,[FromBody] PasswordChangeDto req)
         {
-            var userId = HttpContext.Session.GetString("UserId");
+            //var userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
                 string res = await repo.ChangePasswordForWallet(req, userId);
@@ -68,9 +68,8 @@ namespace ECommerceApplication.Controllers
         }
 
         [HttpPut("ForgetPassword")]
-        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDto req)
+        public async Task<IActionResult> ForgetPassword(string userId, [FromBody] ForgetPasswordDto req)
         {
-            var userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
                 string res = await repo.ForgetPassword(req, userId);
@@ -82,9 +81,9 @@ namespace ECommerceApplication.Controllers
             }
         }
         [HttpGet("CheckBalance")]
-        public async Task<IActionResult> CheckBalance()
+        public async Task<IActionResult> CheckBalance(string userId)
         {
-            var userId = HttpContext.Session.GetString("UserId");
+           // var userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
                 string res = await repo.CheckBalance(userId);

@@ -15,23 +15,24 @@ namespace ECommerceApplication.Controllers
 
         }
         [HttpGet]
-        [Authorize(Roles = "User")]
-        public async Task<IActionResult> GetAll()
+       // [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetAll(string userId)
         {
-            var userId = HttpContext.Session.GetString("UserId");
+           // var userId = HttpContext.Session.GetString("UserId");
             var list = await shoppingCartRepository.GetAllAsync(userId);
             if (list == null)
             {
                 return Ok("Something went wrong");
             }
+            var name = "lol";
             return Ok(list);
         }
 
         [HttpPost]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> AddToCart([FromRoute] Guid id)
+        public async Task<IActionResult> AddToCart(string userId,[FromRoute] Guid id)
         {
-            var userId = HttpContext.Session.GetString("UserId");
+           // var userId = HttpContext.Session.GetString("UserId");
             var res = await shoppingCartRepository.AddAsync(id, userId);
             if (res == null)
             {
@@ -42,18 +43,18 @@ namespace ECommerceApplication.Controllers
 
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> DeleteItem([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteItem(string userId, [FromRoute] Guid id)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+            //string userId = HttpContext.Session.GetString("UserId");
             var name = "lol";
             var list = shoppingCartRepository.DeleteAsync(id, userId);
             
             return Ok(list);
         }
         [HttpPut("IncreaseCountByone/{id:Guid}")]
-        public async Task<IActionResult> UpdatePlusitem([FromRoute] Guid id)
+        public async Task<IActionResult> UpdatePlusitem(string userId,[FromRoute] Guid id)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+            //string userId = HttpContext.Session.GetString("UserId");
             var list = await shoppingCartRepository.UpdateCountPlusAsync(id, userId);
             if (list == null)
             {
@@ -63,9 +64,9 @@ namespace ECommerceApplication.Controllers
         }
 
         [HttpPut("DecreaseCountByone/{id:Guid}")]
-        public async Task<IActionResult> UpdateMinusitem([FromRoute] Guid id)
+        public async Task<IActionResult> UpdateMinusitem(string userId,[FromRoute] Guid id)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+           // string userId = HttpContext.Session.GetString("UserId");
             var list = await shoppingCartRepository.UpdateCountMinusAsync(id, userId);
             if (list == null)
             {
@@ -76,9 +77,9 @@ namespace ECommerceApplication.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById(string userId,[FromRoute] Guid id)
         {
-            string userId= HttpContext.Session.GetString("UserId");
+            //string userId= HttpContext.Session.GetString("UserId");
             var list=shoppingCartRepository.GetByIdAsync(id,userId);
             if(list == null)
             {

@@ -17,13 +17,14 @@ namespace ECommerceApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder([FromBody] PaymentMethodDto payment)
+        public async Task<IActionResult> PlaceOrder(string userId,[FromBody] PaymentMethodDto payment)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+            //string userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
 
                 //int id = (payment.Method == "E-Wallet") ? 1 : 0;
+
                 OrderDetailsShowDto res = await repo.PlaceOrder(payment, userId);
                 if (res != null)
                 {
@@ -33,12 +34,12 @@ namespace ECommerceApplication.Controllers
             return BadRequest("Something Went wrong");
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllOrder()
+        public async Task<IActionResult> GetAllOrder(string userId)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+            //string userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
-                var list = await repo.ShowAllOrders(userId);
+               List< OrderListsForUserDTO> list = await repo.ShowAllOrders(userId);
                 if (list != null)
                 {
                     return Ok(list);
@@ -49,12 +50,12 @@ namespace ECommerceApplication.Controllers
         }
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> GetExactOrder([FromRoute]Guid orderId)
+        public async Task<IActionResult> GetExactOrder(string userId,[FromRoute]Guid id)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+           // string userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
-                var list = await repo.ShowExactOrder(userId, orderId);
+                var list = await repo.ShowExactOrder(userId, id);
                 if (list != null)
                 {
                     return Ok(list);

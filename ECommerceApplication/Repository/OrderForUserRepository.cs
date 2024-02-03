@@ -51,7 +51,9 @@ namespace ECommerceApplication.Repository
                 {
                     UserId = userId,
                     OrderDate = DateTime.Now,
-                    ShippingAddress = user.Address,
+                    ShippingAddress = payment.Address ,
+                    Name= payment.Name ,
+                    PhoneNumber=payment.Mobile,
                     TotalPrice = amount,
                     OrderItems = JsonConvert.SerializeObject(cart),
                     PaymentMethod = p.PaymentMethod,
@@ -107,8 +109,12 @@ namespace ECommerceApplication.Repository
                     var v = await db.ApplicationUsers.FirstOrDefaultAsync(x => x.Id == pro.VenderId);
                     list.Add(new OrderListsForUserDTO
                     {
+                        ShippingAddress = order.ShippingAddress,
+                        Name = order.Name,
+                        Mobile = order.PhoneNumber,
                         OrderId = order.OrderId,
                         OrderDate = order.OrderDate,
+                        ProductId=pro.ProductId,
                         ProductName = pro.ProductName,
                         Price = pro.Price,
                         totalPrice = item.count * pro.Price,
@@ -137,6 +143,10 @@ namespace ECommerceApplication.Repository
                     OrderId = order.OrderId,
                     OrderDate = order.OrderDate,
                     ProductName = pro.ProductName,
+                    ProductId=pro.ProductId,
+                    ShippingAddress=order.ShippingAddress,
+                    Name=order.Name,
+                    Mobile=order.PhoneNumber,
                     Price = pro.Price,
                     totalPrice = item.count * pro.Price,
                     GrandTotal = order.TotalPrice,

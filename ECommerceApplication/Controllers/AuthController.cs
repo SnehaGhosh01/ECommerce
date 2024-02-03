@@ -115,7 +115,9 @@ namespace ECommerceApplication.Controllers
 
                         var response = new LoginResponseDto
                         {
-                            JwtToken = jwtToken
+
+                            JwtToken = jwtToken,
+                            UserId = user.Id
                         };
                         
                         
@@ -128,10 +130,10 @@ namespace ECommerceApplication.Controllers
             return BadRequest("Username or password incorrect");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ProfileView()
+        [HttpGet("ProfileView")]
+        public async Task<IActionResult> ProfileView(string userId)
         {
-            string userId=HttpContext.Session.GetString("UserId");
+            
             if(userId != null)
             {
                ProfileViewDto res = await userProfileRepository.Profile(userId);
@@ -147,12 +149,13 @@ namespace ECommerceApplication.Controllers
             return Ok("User Not Found");
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ProfileEdit([FromBody] ProfileEditDto p)
+        [HttpPut("ProfileEdit")]
+        public async Task<IActionResult> ProfileEdit(string userId,[FromBody] ProfileViewDto p1)
         {
-            string userId = HttpContext.Session.GetString("UserId");
+            //string userId = HttpContext.Session.GetString("UserId");
             if (userId != null)
             {
+                ProfileEditDto p = new ProfileEditDto {Phone_Number=p1.Phone_Number,Address=p1.Address,Name=p1.Name };
                 ProfileViewDto res = await userProfileRepository.UpdateProfile(userId,p);
                 if (res != null)
                 {

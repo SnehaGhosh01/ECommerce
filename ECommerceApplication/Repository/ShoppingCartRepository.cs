@@ -66,7 +66,6 @@ namespace ECommerceApplication.Repository
 
         }
 
-
         public async Task<List<ShoppingCartReturnDto>> DeleteAsync(Guid id,string userId)
         {
             ShoppingCart cart= await db.ShoppingCarts.FirstOrDefaultAsync(c=>c.ProductId== id && c.UserId==userId);
@@ -99,6 +98,7 @@ namespace ECommerceApplication.Repository
                 var n = "name";
                 res.Add(new ShoppingCartReturnDto
                 {
+                    ProductId=pro.ProductId,
                     ImageUrl = pro.ImageUrl,
                     ProductName =pro.ProductName,
                     VenderName = v.Name,

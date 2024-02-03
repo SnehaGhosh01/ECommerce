@@ -78,6 +78,7 @@ C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.csproj.CoreCompileInputs.cache
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.sourcelink.json
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\staticwebassets.build.json
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\staticwebassets.development.json
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\staticwebassets\msbuild.ECommerceApplication.Microsoft.AspNetCore.StaticWebAssets.props
@@ -92,4 +93,3 @@ C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.pdb
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.genruntimeconfig.cache
 C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ref\ECommerceApplication.dll
-C:\Users\RAHUL KUNDU\source\repos\ECommerceApplication\ECommerceApplication\obj\Debug\net7.0\ECommerceApplication.sourcelink.json

@@ -43,7 +43,7 @@ namespace ECommerceApplication.Repository
                 }
                     return null;
             }
-            else if(payment.Method.ToLower() =="cash on delivery")
+            else if(payment.Method.ToLower() =="cash")
             {
                 return new PaymentDTO
                 {

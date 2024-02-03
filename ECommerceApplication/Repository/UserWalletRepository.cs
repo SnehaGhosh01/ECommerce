@@ -32,6 +32,7 @@ namespace ECommerceApplication.Repository
         public async Task<string> RechargeWallet(WalletRechargeDto r, string userid)
         {
             var wallet=await db.UserWallets.FirstOrDefaultAsync(x=>x.UserId==userid);
+            
             if(wallet == null)
             {
                 return "You don't have e-wallet. U need to register it...";
@@ -92,7 +93,7 @@ namespace ECommerceApplication.Repository
             UserWallet wallet=await db.UserWallets.FirstOrDefaultAsync(x=>x.UserId== userId);
             if(wallet == null)
             {
-                return "Sorry but you don't have any e-wallet";
+                return null;
             }
             else
             {
